@@ -1,21 +1,34 @@
 import React from "react";
-import { view, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import * as firebase from "firebase";
 
 export default class LoadingScreen extends React.Component {
+
+    state={
+        email:"",
+        displayName:""
+    }
+
+    componentDidMount(){
+        const{email,displayName} = firebase.auth().currentUser
+
+        this.setState({email,displayName});
+    };
+
+
+    signOutUser=()=>{
+        firebase.auth().signOut();
+    };
+
   render() {
     return (
-      <view style={styles.container}>
-        <text style={styles.greating}>{"Hello again.\n Welcome back."}</text>
+      <View style={styles.container}>
+        <Text style={styles.greating}>Hi{this.state.email}!</Text>
 
-        <view style={styles.errorMessage}>
-          <text>Error</text>
-        </view>
-
-        <view style={styles.form}>
-          <text style={styles.inputTitle}>Email Address</text>
-          <TextInput style={styles.input} autoCapitalize="none"></TextInput>
-        </view>
-      </view>
+        <TouchableOpacity style={{margintTop:32}} onPress={this.signOutUser}>
+            <Text>Logout</Text>
+        </TouchableOpacity>
+      </View>
     );
   }
 }
