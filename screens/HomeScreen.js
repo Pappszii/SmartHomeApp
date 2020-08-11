@@ -23,7 +23,7 @@ export default class LoadingScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.greating}>Hi{this.state.email}!</Text>
+        <Text style={styles.greating}>Hi {this.state.email}!</Text>
 
         <TouchableOpacity style={{margintTop:32}} onPress={this.signOutUser}>
             <Text>Logout</Text>
