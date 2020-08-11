@@ -57,7 +57,7 @@ export default class LoginScreen extends React.Component {
         <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
           <Text style={{ color: "#FFF", fontWeight: "500" }}>Sign in</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{ alignSelf: "center", marginTop: 32 }}>
+        <TouchableOpacity style={{ alignSelf: "center", marginTop: 32 }} onPress={() => this.props.navigation.navigate("Register")}>
           <Text style={{ color: "#414959", fontSize: 13 }}>
             New to SmartHomeApp?{" "}
             <Text style={{ color: "#E9446A" }}>Sign Up</Text>
