@@ -8,6 +8,19 @@ import {
   TouchableOpacity,
 } from "react-native";
 import * as firebase from "firebase";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+
+const Tab = createBottomTabNavigator();
+
+function MyTabs() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Home" component={LoginScreen} />
+    </Tab.Navigator>
+  );
+}
+
 
 export default class LoginScreen extends React.Component {
   state = {
@@ -21,6 +34,9 @@ export default class LoginScreen extends React.Component {
 
       firebase.auth().signInWithEmailAndPassword(email,password).catch(error=> this.setState({errorMessage:error.message}))
   }
+
+
+  
 
   render() {
     return (
@@ -57,7 +73,10 @@ export default class LoginScreen extends React.Component {
         <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
           <Text style={{ color: "#FFF", fontWeight: "500" }}>Sign in</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{ alignSelf: "center", marginTop: 32 }} onPress={() => this.props.navigation.navigate("Register")}>
+        <TouchableOpacity
+          style={{ alignSelf: "center", marginTop: 32 }}
+          onPress={() => this.props.navigation.navigate("Register")}
+        >
           <Text style={{ color: "#414959", fontSize: 13 }}>
             New to SmartHomeApp?{" "}
             <Text style={{ color: "#E9446A" }}>Sign Up</Text>

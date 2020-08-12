@@ -36,6 +36,7 @@ const AuthStack = createStackNavigator({
   Register: RegisterScreen
 })
 
+
 /*
 export default function App() {
   return (
