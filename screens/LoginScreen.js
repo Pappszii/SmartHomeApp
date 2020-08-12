@@ -71,8 +71,6 @@ export default class LoginScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
   greeting: {
     marginTop: 32,
@@ -100,16 +98,23 @@ const styles = StyleSheet.create({
   input: {
     borderBottomColor: "#8A8F9E",
     borderBottomWidth: StyleSheet.hairlineWidth,
-    height: 40,
+    height: 30,
     fontSize: 15,
     color: "rgb(138,143,158)",
+    alignSelf: "stretch",
+    textAlignVertical: "top",
   },
   button: {
-    marginHorizontal: 30,
+    marginHorizontal: 40,
+    marginTop: 32,
     backgroundColor: "#E9446A",
-    borderRadius: 4,
+    borderRadius: 3,
     height: 52,
     alignItems: "center",
     justifyContent: "center",
+  },
+  form: {
+    marginBottom: 48,
+    marginHorizontal: 30,
   },
 });
