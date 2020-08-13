@@ -72,12 +72,6 @@ export default class RegisterScreen extends React.Component {
         <TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
           <Text style={{ color: "#FFF", fontWeight: "500" }}>Sign up</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{ alignSelf: "center", marginTop: 32 }}>
-          <Text style={{ color: "#414959", fontSize: 13 }}>
-            New to SmartHomeApp?{" "}
-            <Text style={{ color: "#E9446A" }}>Sign Up</Text>
-          </Text>
-        </TouchableOpacity>
       </View>
     );
   }

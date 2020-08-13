@@ -11,15 +11,7 @@ import * as firebase from "firebase";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 
-const Tab = createBottomTabNavigator();
 
-function MyTabs() {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={LoginScreen} />
-    </Tab.Navigator>
-  );
-}
 
 
 export default class LoginScreen extends React.Component {

@@ -9,6 +9,9 @@ import HomeScreen from "./screens/HomeScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 
 import * as firebase from 'firebase';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import MessageScreen from './screens/MessageScreen';
+import { NavigationContainer } from '@react-navigation/native';
 
 
 
@@ -28,8 +31,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const AppStack = createStackNavigator({
-  Home: HomeScreen
-})
+  Home: HomeTabs,
+});
 
 const AuthStack = createStackNavigator({
   Login: LoginScreen,
@@ -37,16 +40,18 @@ const AuthStack = createStackNavigator({
 })
 
 
-/*
-export default function App() {
+const Tab = createBottomTabNavigator();
+
+function HomeTabs() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Message" component={MessageScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
-*/
 
 export default createAppContainer(
   createSwitchNavigator(
