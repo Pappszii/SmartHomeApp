@@ -1,7 +1,7 @@
 import React from "react";
 import {StyleSheet,Text,View, Modal} from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
+import TodoModal from"../components/TodoModal"
 
 
 
@@ -26,9 +26,7 @@ const list = this.props.list;
           visible={this.state.showListVisible}
           onRequestClose={() => state.toggleListModal()}
         >
-          <View>
-            <Text>List Modal</Text>
-          </View>
+         <TodoModal list={list} closeModal={()=>this.toggleListModal()}></TodoModal>
         </Modal>
       </View>
 
