@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ActivityIndicator, Modal } from "react-native";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import TodoList from "../components/TodoList";
 import AddListModal from "../components/AddListModal"
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const tempData = [
   {
@@ -11,7 +12,7 @@ const tempData = [
     todos: [
       {
         title: "Book Fight",
-        completed: false,
+        completed: true,
       },
       {title:"fk off",
     completed:false}
@@ -47,12 +48,15 @@ export default class MessageScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Modal animationType="slide" visible={this.state.addTodoVisible} onRequestClose={()=> this.toggleAddTodoModal()}>
-          <AddListModal closeModal={()=>this.toggleAddTodoModal()}/>
+        <Modal
+          animationType="slide"
+          visible={this.state.addTodoVisible}
+          onRequestClose={() => this.toggleAddTodoModal()}
+        >
+          <AddListModal closeModal={() => this.toggleAddTodoModal()} />
         </Modal>
 
-
-        <View style={{ flex: 1, paddingleft: 32 ,marginTop:16}}>
+        <View style={{ flex: 1, paddingleft: 32, marginTop: 16 }}>
           <FlatList
             data={tempData}
             keyExtractor={(item) => item.name}
@@ -62,10 +66,15 @@ export default class MessageScreen extends React.Component {
           ></FlatList>
         </View>
         <View style={{ marginVertical: 32 }}>
-          <TouchableOpacity onPress={()=> this.toggleAddTodoModal()}>
-            <Text style={styles.addList}>+</Text>
-            <Text>Add todo</Text>
+          <TouchableOpacity onPress={() => this.toggleAddTodoModal()} style={{alignItems:"center"}}>
+            <MaterialCommunityIcons
+              name="plus"
+              size={16}
+              sty
+              style={styles.addList}
+            />
           </TouchableOpacity>
+          <Text>Add todo</Text>
         </View>
       </View>
     );

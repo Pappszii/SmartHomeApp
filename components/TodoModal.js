@@ -11,6 +11,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 
 
+
 export default class TodoModal extends React.Component {
                  state = {
                    name: this.props.list.name,
