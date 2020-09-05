@@ -14,10 +14,7 @@ import { FlatList, TextInput } from "react-native-gesture-handler";
 
 export default class TodoModal extends React.Component {
                  state = {
-                   name: this.props.list.name,
-                   color: this.props.list.color,
-                   todos: this.props.list.todos,
-                   showListVisible: false,
+                   newTodo:""
                  };
                  renderTodo = (todo) => {
                    return (
@@ -36,7 +33,9 @@ export default class TodoModal extends React.Component {
                  };
 
                  render() {
+                   const list = this.props.list;
                    return (
+                     <KeyboardAvoidingView style={{flex:1}} behavior={"padding"}>
                      <SafeAreaView style={styles.container}>
                        <TouchableOpacity
                          style={{
@@ -53,15 +52,15 @@ export default class TodoModal extends React.Component {
                          style={[
                            styles.section,
                            styles.header,
-                           { borderBottomColor: this.state.color },
+                           { borderBottomColor: list.color },
                          ]}
                        >
-                         <Text style={styles.title}>{this.state.name}</Text>
+                         <Text style={styles.title}>{list.name}</Text>
                          <Text style={{ color: "#808080" }}>2 of 4 tasks</Text>
                        </View>
                        <View style={[styles.section, { flex: 3 }]}>
                          <FlatList
-                           data={this.state.todos}
+                           data={list.todos}
                            renderItem={({ item }) => this.renderTodo(item)}
                            keyExtractor={(item) => item.title}
                            contentContainerStyle={{
@@ -71,20 +70,20 @@ export default class TodoModal extends React.Component {
                            showsVerticalScrollIndicator={false}
                          ></FlatList>
                        </View>
-                       <KeyboardAvoidingView
+                       <View
                          style={[styles.section, styles.footer]}
                          behavior="padding"
                        >
                          <TextInput
                            style={[
                              styles.input,
-                             { borderColor: this.state.color },
+                             { borderColor: list.color },
                            ]}
                          />
                          <TouchableOpacity
                            style={[
                              styles.addTodo,
-                             { backgroundColor: this.state.color },
+                             { backgroundColor: list.color },
                            ]}
                          >
                            <MaterialCommunityIcons
@@ -93,8 +92,9 @@ export default class TodoModal extends React.Component {
                              color="#ffffff"
                            />
                          </TouchableOpacity>
-                       </KeyboardAvoidingView>
+                       </View>
                      </SafeAreaView>
+                     </KeyboardAvoidingView>
                    );
                  }
                }

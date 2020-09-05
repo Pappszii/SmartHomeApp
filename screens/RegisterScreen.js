@@ -18,7 +18,7 @@ export default class RegisterScreen extends React.Component {
   };
 
   handleSignUp = () => {
-      firebase.auth().createUserWithEmailAndPassword(this.state.email,tihs.state.password)
+      firebase.auth().createUserWithEmailAndPassword(this.state.email,this.state.password)
       .then(userCredentials => {
           return userCredentials.user.updateProfile({
               displayName:this.state.name

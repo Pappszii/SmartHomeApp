@@ -2,15 +2,23 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import * as firebase from "firebase";
 
-export default class LoadingScreen extends React.Component {
+
+
+
+export default class HomeScreen extends React.Component {
 
     state={
         email:"",
-        displayName:""
+        displayName:"",
+        lists:[],
+        user:{},
+        loading:true
     }
 
     componentDidMount(){
+       
         const{email,displayName} = firebase.auth().currentUser
+     
 
         this.setState({email,displayName});
     };

@@ -4,6 +4,9 @@ import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import TodoList from "../components/TodoList";
 import AddListModal from "../components/AddListModal"
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import * as firebase from "firebase";
+import Fire from "../Fire";
+
 
 const tempData = [
   {
@@ -30,56 +33,103 @@ const tempData = [
   },
 ];
 
+
+
 export default class MessageScreen extends React.Component {
-  
-  state ={
-    addTodoVisible:false
-  };
-  
-  
-  toggleAddTodoModal(){
-    this.setState({addTodoVisible:!this.state.addTodoVisible});
-  }
+                 state = {
+                   addTodoVisible: false,
+                   lists: [],
+                   user: {},
+                 };
 
-  renderList = list=>{
-    return<TodoList list={list}/>
-  }
+                 componentDidMount(){
+                  fire = new Fire();
+                  const user = firebase.auth().currentUser;
+                  this.setState(user);
+                  fire.getLists(lists=>{
+                    this.setState({lists,user})
+                  });
+                 }
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Modal
-          animationType="slide"
-          visible={this.state.addTodoVisible}
-          onRequestClose={() => this.toggleAddTodoModal()}
-        >
-          <AddListModal closeModal={() => this.toggleAddTodoModal()} />
-        </Modal>
+                 componentWillUnmount(){
+                   this.refs.onSnapshot
+                 }
+                  
 
-        <View style={{ flex: 1, paddingleft: 32, marginTop: 16 }}>
-          <FlatList
-            data={tempData}
-            keyExtractor={(item) => item.name}
-            horizontal={false}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => <TodoList list={item} />}
-          ></FlatList>
-        </View>
-        <View style={{ marginVertical: 32 }}>
-          <TouchableOpacity onPress={() => this.toggleAddTodoModal()} style={{alignItems:"center"}}>
-            <MaterialCommunityIcons
-              name="plus"
-              size={16}
-              sty
-              style={styles.addList}
-            />
-          </TouchableOpacity>
-          <Text>Add todo</Text>
-        </View>
-      </View>
-    );
-  }
-}
+                 addList = (list) => {
+                   this.setState({
+                     lists: [
+                       ...this.state.lists,
+                       { ...list, id: this.state.lists.length + 1, todos: [] },
+                     ],
+                   });
+                 };
+
+                 updateList = list=>{
+                   this.setState({lists:[...this.state.lists,{...list,id:this.state.lists.length+1,todos:[]}]})
+                 }
+
+                 toggleAddTodoModal() {
+                   this.setState({
+                     addTodoVisible: !this.state.addTodoVisible,
+                   });
+                 }
+
+                 renderList = (list) => {
+                   return <TodoList list={list} updateList={this.updateList} />;
+                 };
+
+                 updateList = lists => {
+                   this.setState({
+                     lists:this.state.lists.map(item=>{
+                       return item.id===list.id?list:item;
+                     })
+                   })
+                 };
+
+                 render() {
+                   return (
+                     <View style={styles.container}>
+                       <Modal
+                         animationType="slide"
+                         visible={this.state.addTodoVisible}
+                         onRequestClose={() => this.toggleAddTodoModal()}
+                       >
+                         <AddListModal
+                           closeModal={() => this.toggleAddTodoModal()}
+                           addList={this.addList}
+                         />
+                       </Modal>
+
+                       <View
+                         style={{ flex: 1, paddingleft: 32, marginTop: 16 }}
+                       >
+                         <FlatList
+                           data={this.state.lists}
+                           keyExtractor={(item) => item.name}
+                           horizontal={false}
+                           showsVerticalScrollIndicator={false}
+                           renderItem={({ item }) => <TodoList list={item} />}
+                         ></FlatList>
+                       </View>
+                       <View style={{ marginVertical: 32 }}>
+                         <TouchableOpacity
+                           onPress={() => this.toggleAddTodoModal()}
+                           style={{ alignItems: "center" }}
+                         >
+                           <MaterialCommunityIcons
+                             name="plus"
+                             size={16}
+                             sty
+                             style={styles.addList}
+                           />
+                         </TouchableOpacity>
+                         <Text>Add todo</Text>
+                       </View>
+                     </View>
+                   );
+                 }
+               }
 
 const styles = StyleSheet.create({
   container: {

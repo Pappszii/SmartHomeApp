@@ -1,18 +1,12 @@
-import FirebaseKey from "./config"
 import firebase from "firebase"
-import FirebaseKeys from "./config"
 
 class Fire {
-    constructor(){
-        firebase.initializeApp(FirebaseKeys);
-    }
-
-
+   
     get firestore(){
         return firebase.firestore();
     }
 
-    get uid(){
+    get userId(){
         return(firebase.auth().currentUser || {}).uid;
     }
 
@@ -38,7 +32,18 @@ return new Promise((res,rej)=>{
 });
 };
 
+getLists(callback){
+    let ref = firebase.firestore().collection('users').doc(this.userId).collection('lists');
+
+    this.unsubscribe = ref.onSnapshot(snapshot =>{
+        lists=[]
+        snapshot.forEach(doc=>{
+            lists.push({id:doc.id,...doc.data()})
+        })
+
+        callback(lists);
+    })
+    }
 }
 
-Fire.shared= new Fire();
 export default Fire;

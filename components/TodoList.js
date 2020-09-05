@@ -26,7 +26,7 @@ const list = this.props.list;
           visible={this.state.showListVisible}
           onRequestClose={() => state.toggleListModal()}
         >
-         <TodoModal list={list} closeModal={()=>this.toggleListModal()}></TodoModal>
+         <TodoModal list={list} closeModal={()=>this.toggleListModal()} updateList={this.updateList}/>
         </Modal>
       </View>
 
