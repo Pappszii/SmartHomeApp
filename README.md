@@ -1,4 +1,4 @@
 # SmartHomeApp
 
 Smart Home app 
-React native
+React native and Firebase
