@@ -8,6 +8,8 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+SmartHomeApp/config.js
+config.js
 
 # macOS
 .DS_Store
