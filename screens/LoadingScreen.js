@@ -4,17 +4,23 @@ import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 
 
 export default class LoadingScreen extends React.Component {
-                
 
-                 render() {
-                   return (
-                     <View style={styles.container}>
-                       <Text style={styles.greeting}>Loading...</Text>
-                       <ActivityIndicator size="large"></ActivityIndicator>
-                     </View>
-                   );
-                 }
-               }
+  
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      this.props.navigation.navigate(user ? "App" : "Auth");
+    });
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.greeting}>Loading...</Text>
+        <ActivityIndicator size="large"></ActivityIndicator>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
